@@ -37,7 +37,7 @@ public class ListActivity extends AppCompatActivity {
 
     private void ImageAlertDialog(){ // click on image prompts alert dialog method
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Profile").setCancelable(false);
+        builder.setMessage("MADness").setCancelable(false);
         builder.setPositiveButton("View", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
