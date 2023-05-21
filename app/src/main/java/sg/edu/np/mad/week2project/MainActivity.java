@@ -2,12 +2,14 @@ package sg.edu.np.mad.week2project;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 
 public class MainActivity extends AppCompatActivity {
@@ -46,17 +48,18 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     togBtn2.getTextOn();
                     Log.v(title,"Toggle Button: Follow clicked!Now Following");
+                    Toast.makeText(getApplicationContext(), "Followed", Toast.LENGTH_LONG).show(); // show toast message at bottom of screen
                 }
             });
         }
 
         ToggleButton togBtn3 = findViewById(R.id.toggleButton3);
-        togBtn3.getTextOff();
+        togBtn3.getTextOff(); // shows text: message
         togBtn3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Log.v(title,"Toggle Button: Message clicked!");
-                togBtn3.getTextOn();
+                togBtn3.getTextOn();  // user is messaged
             }
         });
     }
@@ -71,6 +74,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         Log.v(title, "Resume");
+        // want to pull out random number from the List Activity Page
+        final String myRecvNum;
+        Intent myRecvIntent = getIntent();
+        myRecvNum = myRecvIntent.getStringExtra("Random Number");
+        TextView tv2 = findViewById(R.id.textView2);
+        tv2.setText("MAD " + myRecvNum);
+        Log.v(title, "Received: " + myRecvNum);
     }
 
     @Override
