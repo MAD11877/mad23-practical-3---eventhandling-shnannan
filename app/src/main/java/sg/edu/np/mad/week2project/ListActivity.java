@@ -30,6 +30,7 @@ public class ListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Log.v(title, "List image clicked!");
+                // when image is clicked, method is activated to show alert dialog
                 ImageAlertDialog();
             }
         });
