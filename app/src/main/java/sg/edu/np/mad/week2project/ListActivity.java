@@ -19,55 +19,34 @@ public class ListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
-    }
+        ImageView startImage = findViewById(R.id.startImg);
 
-    @Override
-    protected void onResume(){
-        super.onResume();
-        Log.v(title, "On Resume! List Activity Page Started!");
-        ImageView listView = findViewById(R.id.imageView);
-        listView.setOnClickListener(new View.OnClickListener() {
+        // when image is clicked start the alert dialogue
+        startImage.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Log.v(title, "List image clicked!");
-                // when image is clicked, method is activated to show alert dialog
-                ImageAlertDialog();
+            public void onClick(View view) {
+                Random num = new Random();
+                Integer randNum = num.nextInt(999999999);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(ListActivity.this);
+
+                builder.setTitle("Profile");
+                builder.setMessage("MADness");
+                builder.setPositiveButton("View", new DialogInterface.OnClickListener(){
+                    public void onClick(DialogInterface dialog, int id){
+                        // going to main activity and throwing over random number
+                        Intent ToMainIntent = new Intent(ListActivity.this, MainActivity.class);
+                        ToMainIntent.putExtra("rNumber", randNum);
+                        startActivity(ToMainIntent);
+                    }
+                });
+                builder.setNegativeButton("Close", new DialogInterface.OnClickListener(){
+                    public void onClick(DialogInterface dialog, int id){
+                    }
+                });
+
+                builder.show();
             }
         });
-    }
-
-    private void ImageAlertDialog(){ // click on image prompts alert dialog method
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("MADness").setCancelable(false);
-        builder.setPositiveButton("View", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                // what happens when View Button is clicked
-                Log.v(title, "User accepts to view profile page");
-                // intent to go back to main activity through View button
-                Intent myIntent = new Intent(ListActivity.this, MainActivity.class);
-                String randNum = String.valueOf(randomNum());
-                myIntent.putExtra("Random Number", randNum); // getting random number from List Activity Page
-                startActivity(myIntent); // the action of the Intent
-                Log.v(title, "New random number generated");
-            }
-        });
-        builder.setNegativeButton("Close", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Log.v(title, "User declines to view profile page");
-                finish();
-            }
-        });
-
-        AlertDialog alert = builder.create();
-        alert.setTitle("Profile");
-        alert.show(); // show the alert title
-    }
-
-    private int randomNum(){
-        Random ran = new Random();
-        int myRandomNumber = ran.nextInt(100000);
-        return myRandomNumber;
     }
 }
